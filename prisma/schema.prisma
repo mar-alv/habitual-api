@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum HabitFrequency {
+  daily
+  weekly
+  custom
+}
+
+model Habit {
+  id              String         @id @default(uuid())
+  name            String
+  description     String?
+  frequency       HabitFrequency
+  targetPerPeriod Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  logs HabitLog[]
+}
+
+model HabitLog {
+  id      String @id @default(uuid())
+  habitId String
+  habit   Habit  @relation(fields: [habitId], references: [id])
+
+  date      String
+  completed Boolean
+  value     Float?
+
+  createdAt DateTime @default(now())
+
+  @@unique([habitId, date])
+}
