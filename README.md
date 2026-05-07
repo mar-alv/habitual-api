@@ -11,14 +11,9 @@
 - [📖 Instruções](#instructions)
 	- [📥 Instalar](#install)
 	- [🚀 Rodar Localmente](#locally)
-	- [📋 Rodar Testes Unitários](#unit-tests)
-	- [🏁 Rodar Testes End-To-End](#e2e-tests)
-	- [📔 Rodar Storybook](#storybook)
 - [⚡ Endpoints](#endpoints)
 - [📂 Estrutura](#structure)
 - [🧰 Tecnologias](#technologies)
-- [📸 Prints e 🎥 Gravações](#screenshots-prints)
-- [👤 Autor](#author)
 - [📄 Licença](#license)
 
 ### <a id='about' style='text-decoration: none; color: inherit;'>❕ Sobre</a>
@@ -197,6 +192,33 @@ HTTP/1.1 200 OK
 }
 
 HTTP/1.1 400 Bad Request
+```
+
+---
+
+##### 📊 Métricas do hábito (GET /habits/:id/metrics)
+
+Retorna estatísticas de progresso do hábito
+
+```sh
+curl -X GET http://localhost:3333/habits/{id}/metrics
+```
+
+```sh
+http GET http://localhost:3333/habits/{id}/metrics
+```
+
+Respostas
+
+```
+HTTP/1.1 200 OK
+
+{
+  "totalDays": 10,
+  "completedDays": 7,
+  "completionRate": 0.7,
+  "logs": [...]
+}
 ```
 
 ---
