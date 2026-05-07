@@ -1,19 +1,13 @@
-import { FastifyInstance } from "fastify";
-import { z } from "zod";
-import { makeHabitsRepository } from "../repositories/habits.repository-factory";
-import { HabitsService } from "./habits.service";
-import { HabitsController } from "./habits.controller";
+import { habitsController } from "@/controllers";
 import {
   createHabitSchema,
   updateHabitSchema,
   createHabitLogSchema,
-} from "./habits.schemas";
+} from "@/schemas";
+import { FastifyInstance } from "fastify";
+import { z } from "zod";
 
 export async function habitsRoutes(app: FastifyInstance) {
-  const repo = makeHabitsRepository();
-  const service = new HabitsService(repo);
-  const controller = new HabitsController(service);
-
   app.post(
     "/habits",
     {
@@ -21,10 +15,10 @@ export async function habitsRoutes(app: FastifyInstance) {
         body: createHabitSchema,
       },
     },
-    controller.create,
+    habitsController.create,
   );
 
-  app.get("/habits", controller.list);
+  app.get("/habits", habitsController.list);
 
   app.patch(
     "/habits/:id",
@@ -36,7 +30,7 @@ export async function habitsRoutes(app: FastifyInstance) {
         }),
       },
     },
-    controller.update,
+    habitsController.update,
   );
 
   app.delete(
@@ -48,7 +42,7 @@ export async function habitsRoutes(app: FastifyInstance) {
         }),
       },
     },
-    controller.delete,
+    habitsController.delete,
   );
 
   app.post(
@@ -61,6 +55,18 @@ export async function habitsRoutes(app: FastifyInstance) {
         }),
       },
     },
-    controller.log,
+    habitsController.log,
+  );
+
+  app.get(
+    "/habits/:id/metrics",
+    {
+      schema: {
+        params: z.object({
+          id: z.string(),
+        }),
+      },
+    },
+    habitsController.metrics,
   );
 }
