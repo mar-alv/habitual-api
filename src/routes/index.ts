@@ -3,6 +3,7 @@ import {
   createHabitSchema,
   updateHabitSchema,
   createHabitLogSchema,
+	toggleHabitSchema,
 } from "@/schemas";
 import { FastifyInstance } from "fastify";
 import { z } from "zod";
@@ -20,7 +21,7 @@ export async function habitsRoutes(app: FastifyInstance) {
 
   app.get("/habits", habitsController.list);
 
-  app.patch(
+  app.put(
     "/habits/:id",
     {
       schema: {
@@ -56,6 +57,19 @@ export async function habitsRoutes(app: FastifyInstance) {
       },
     },
     habitsController.log,
+  );
+
+  app.patch(
+    "/habits/:id/check",
+    {
+      schema: {
+        body: toggleHabitSchema,
+        params: z.object({
+          id: z.string(),
+        }),
+      },
+    },
+    habitsController.check,
   );
 
   app.get(

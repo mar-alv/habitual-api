@@ -14,7 +14,7 @@ app.setSerializerCompiler(serializerCompiler);
 
 app.register(cors, {
   origin: true,
-  methods: ["GET", "POST", "PATCH", "DELETE"],
+  methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
 });
 
 app.register(habitsRoutes);

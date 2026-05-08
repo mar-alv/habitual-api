@@ -5,6 +5,7 @@ import {
   UpdateHabitBody,
   CreateHabitLogBody,
   HabitParams,
+  ToggleHabitBody,
 } from "@/schemas";
 
 export const habitsController = {
@@ -52,6 +53,21 @@ export const habitsController = {
     const log = await habitsService.logHabit(req.params.id, req.body);
 
     return reply.send(log);
+  },
+
+  async check(
+    req: FastifyRequest<{
+      Params: HabitParams;
+      Body: ToggleHabitBody;
+    }>,
+    reply: FastifyReply,
+  ) {
+    const result = await habitsService.checkHabit(
+      req.params.id,
+      req.body.completed,
+    );
+
+    return reply.send(result);
   },
 
   async metrics(

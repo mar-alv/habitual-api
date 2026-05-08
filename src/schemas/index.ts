@@ -22,3 +22,9 @@ export type CreateHabitLogBody = z.infer<typeof createHabitLogSchema>;
 export type HabitParams = {
   id: string;
 };
+
+export const toggleHabitSchema = z.object({
+  completed: z.boolean(),
+});
+
+export type ToggleHabitBody = z.infer<typeof toggleHabitSchema>;

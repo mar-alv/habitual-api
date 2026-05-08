@@ -26,6 +26,15 @@ export const habitsService = {
     return habitsRepository.createLog(habitId, data);
   },
 
+  async checkHabit(habitId: string, completed: boolean) {
+    const today = new Date().toISOString().split("T")[0];
+
+    return habitsRepository.createLog(habitId, {
+      date: today,
+      completed,
+    });
+  },
+
   async getMetrics(habitId: string) {
     const logs = await habitsRepository.getLogsByHabit(habitId);
 

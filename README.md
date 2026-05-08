@@ -161,6 +161,50 @@ HTTP/1.1 404 Not Found
 
 ---
 
+##### ✅ Marcar/desmarcar hábito (PATCH /habits/:id/completion)
+
+Marca ou desmarca o hábito como concluído no dia atual.
+
+* `completed: true` → marca como concluído
+* `completed: false` → desmarca
+
+```sh
+curl -X PATCH http://localhost:3333/habits/{id}/completion \
+-h "Content-Type: application/json" \
+-d '{
+  "completed": true
+}'
+```
+
+```sh
+http PATCH http://localhost:3333/habits/{id}/completion completed:=true
+```
+
+Desmarcar:
+
+```sh
+http PATCH http://localhost:3333/habits/{id}/completion completed:=false
+```
+
+Respostas
+
+```txt
+HTTP/1.1 200 OK
+
+{
+  "id": "...",
+  "habitId": "...",
+  "date": "2026-05-07",
+  "completed": true
+}
+
+HTTP/1.1 400 Bad Request
+
+HTTP/1.1 404 Not Found
+```
+
+---
+
 ##### 📝 Registrar progresso (POST /habits/:id/logs)
 
 Cria ou atualiza o log de um hábito em uma data
